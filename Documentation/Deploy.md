@@ -1,24 +1,22 @@
-## Deployment Guide
-
 ### Preface
 This guide will allow you to replicate the network of VMs that I configured for this project. A working knowledge of Bash, PowerShell, and VirtualBox is assumed.
 
-This project was done on a system with the following specifications
+The deployment scripts assume a host system with specifications similar to the following:
 * CPU: AMD Ryzen 7 5800x
 * GPU: AMD RX 6600 XT
 * RAM: 32GB DDR4
-* STORAGE: 1TB SSD
+* STORAGE: 1TB (SSD strongly recommended) 
 
-### Host OS
-* Install Oracle VirtualBox
+### Host Setup 
+* Install Oracle VirtualBox 
 
-* Run the script VM.ps1 or VM.sh depending if you are on a Windows or Linux host respectively, this will create and configure the seven virtual machines.
+* Run the script VM.ps1 if you are on a Windows host or VM.sh if you are on a Linux host, this will create and configure the seven virtual machines.
 
 * Download the following OS images:
-    * Fedora Server 40
-    * Fedora Workstation 40
-    * Windows Server 2022
-    * Windows 11
+    * [Fedora Server 40](https://fedoraproject.org/server/download)
+    * [Fedora Workstation 40](https://fedoraproject.org/workstation/download)
+    * [Windows Server 2022](https://www.microsoft.com/en-us/windows-server)
+    * [Windows 11](https://www.microsoft.com/software-download/windows11)
 
 ### Microsoft Network
 
