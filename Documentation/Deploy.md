@@ -21,13 +21,147 @@ The deployment scripts assume a host system with specifications similar to the f
 ### Microsoft Network
 
 #### MS_pfSense
+* Select the first interface as the WAN interface
+
+* Select the second interface as the LAN interface
+
+* Select continue at each prompt until *Active Subscription Validation*
+
+* Select Install CE
+
+* Accept the default filesystem and partition scheme
+
+* At the *ZFS Configuration* prompt, select stripe
+
+* Select default options in the next prompts, the VM will reboot on its own
+
+* Once pfSense boots, select *Set interface(s) IP address*
+
+* Select the LAN interface
+
+* Select *n* when asked to configure the interface via DHCP
+
+* Enter *173.16.16.1* as the LAN's IPv4 address
+
+* Enter 24 as the subnet bit count
+
+* Select *n* when asked to configure interface via DHCP6
+
+* Press enter to leave IPv6 address blank
+
+* Select *n* when asked to enable DHCP server on LAN
+
+* Select *n* when asked to revert to HTTP as the webConfigurator protocol
+
+* Leave this VM on for the next VM setup
 
 #### MS_AD
+* Mount the Windows Server 2022 ISO 
+
+* When setup begins, select Windows Server 2022 Standard Evaluation (Desktop Experience)
+
+* Accept the license agreement
+
+* Select Custom installation type
+
+* Select Drive 0, the installation will now begin
+
+* On first boot, enter the desired administrator password for this VM.
+
+* On first login, open a PowerShell window with administrator privileges.
+
+* Run the command Rename-Computer -NewName "$DESIREDHOSTNAME" -Force -PassThru
+
+* Reboot the VM
+
+* On next login, right click the network icon in the taskbar and select *Open Network & Internet settings*. 
+
+* Select *Change adapter options* under Advanced network settings
+
+* Select the Ethernet adapter
+
+* Select Properties
+
+* Select Internet Protocol Version 4 (TCP/IPv4)
+
+* Fill in the following settings
+     * IP address: 173.16.16.2
+     * Subnet mask: 255.255.255.0
+     * Default gateway: 173.16.16.1
+     * Preferred DNS server: 1.1.1.1
+
+* Confirm the settings
+
+* When prompted about allowing other devices to discover this one, select Yes.
+
+* Download (Git)[https://git-scm.com/downloads] using Microsoft Edge.
+
+* Install Git with default options. 
+
+* Open Git Bash
+
+* Clone the project repository by running the command *git clone https://github.com/nniemeir/Enterprise-Computing-I*
+
+* Return to the Internet Protocol Version 4 (TCP/IPv4) properties menu
+
+* Select Obtain an IP address automatically. 
+
+* Clear the Preferred DNS server section
+
+* Confirm the settings
+
+* Open a PowerShell prompt with administrative privileges and navigate to the directory Scripts\Microsoft\Active Directory Server under the cloned repository.
+
+* Run the command *Set-ExecutionPolicy unrestricted -scope Process* to allow the deployment scripts to be run.
+
+* At this point we can run scripts by typing .\SCRIPTNAME.ps1 
+
+* Run the script AD_Deploy, this will install Active Directory Domain Services and add DNS records for each VM on the network as defined in DNS_Records.csv in the Records directory.
+
+* You will be prompted to set a SafeModeAdministratorPassword, also known as the  Directory Services Restore Mode password.
+
+* Choose A when prompted to confirm changes
+
+* Run the script AD_Users, this will create privileged and unprivileged Active Directory users as defined in Users_Desktop_Admins.csv and Users_Developers.csv.
+Temporary passwords for each created user will be generated and saved in the Reports directory.
+
+* Follow the deployment instructions for MS_DevStation
+
+* Now we can run the script AD_GPOs, this will apply my altered versions of the Microsoft Security Baseline GPOs to MS_AD and MS_DevStation;the reasons for these alterations are explained (here)[Preface.md].
+
+* Reboot both Windows VMs at this point. 
+
+* Open a PowerShell prompt with administrative privileges and navigate to the directory Scripts\Microsoft\Active Directory Server under the cloned repository. 
+
+* Run the command *Invoke-Command -ComputerName PASSENGER01 -FilePath Dev_Toolkit.ps1*, this will install some common developer applications on MS_DevStation.
+
+* Deployment of this network is now complete.
 
 #### MS_DevStation
 
+INSTALL INSTRUCTIONS OOBE\BYPASSNRO 
 
-Lastly, return to MS_AD and run the script AD_GPOs.ps1
+* On first login, download and install (Git)[https://git-scm.com/downloads]
+
+* Clone the project repository by running the command *git clone https://github.com/nniemeir/Enterprise-Computing-I*
+
+* Open a PowerShell prompt with administrative privileges and navigate to the directory Scripts\Microsoft\Development Workstation under the cloned repository.
+
+* Run the command *Set-ExecutionPolicy unrestricted -scope Process* to allow the deployment scripts to be run.
+
+* Run Pre_Enrollment, this will configure this device's network settings
+
+* The VM will reboot on its own at this point
+
+* Run Enrollment, this will join this device to the Active Directory domain. 
+
+* The VM will reboot on its own again
+
+* You will now be able to login to this device as any of the domain users we created, but you will login as the local user once more
+
+* Run Post_Enrollment, this will add the privileged domain users to the local administrators group on MS_DevStation and configure Windows Remote Management so that scripts targeting MS_DevStation can be run from MS_AD.
+
+* Return to MS_AD.
 
 ### Red Hat Network
 
@@ -106,10 +240,19 @@ Lastly, return to MS_AD and run the script AD_GPOs.ps1
 
 * Clone the project repository by running *git clone https://github.com/nniemeir/Enterprise-Computing-I*
 
-* Run the script Pre-Deployment.sh. After some time, the VM will reboot on its own.
+* Navigate to the directory Scripts/Red Hat/FreeIPA Server
 
-* On first login to GNOME, open the terminal and run the script Deploy.sh.
-GIVE DETAILS ON THIS
+* Run *chmod +x Pre-Deployment.sh Deploy.sh*, this will ensure that both deployment scripts are executable by the current user. 
+
+* Run the script Pre-Deployment.sh, this will configure network settings and install some necessary packages. Reasons for installing these packages are explained (here)[preface.md].
+
+* After some time, the VM will reboot on its own. 
+
+* On first login to GNOME, open the terminal 
+
+* Navigate to the directory Scripts/Red Hat/FreeIPA Server
+
+* Run Deploy.sh, this will deploy FreeIPA itself.
 
 #### RH_Ansible
 
@@ -137,8 +280,25 @@ GIVE DETAILS ON THIS
 
 * Clone the project repository by running *git clone https://github.com/nniemeir/Enterprise-Computing-I*
 
-GIVE DETAILS ON THIS
+* Navigate to the directory Scripts/Red Hat/Ansible Server
+
+* Run *chmod +x Enrollment.sh Post-Enrollment.sh*, this will ensure that both deployment scripts are executable by the current user. 
+
+* Run the script Enrollment.sh, this will configure network settings and install some necessary packages before it enrolls the device as a ipa-client. Reasons for installing these packages are explained (here)[preface.md].
+
+* Run the script Post-Enrollment.sh, this will install Ansible and generate SSH keys for this VM. 
+
+* MORE ANSIBLE STUFF
 
 #### RH_DevStation
+* FEDORA WORKSTATION 40 INSTALL INSTRUCTIONS
 
+* Open a terminal
 
+* Navigate to the directory Scripts/Red Hat/Development Workstation
+
+* Run *chmod +x Enroll.sh*, this will ensure that both deployment scripts are executable by the current user. 
+
+* Run Enroll.sh, this will enroll the device as a ipa-client.
+
+* MORE EXPLAIN

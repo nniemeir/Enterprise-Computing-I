@@ -11,9 +11,6 @@ New-NetIPAddress `
 # Set DNS server to Cloudflare
 Set-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses $CloudflareIP
 
-# Set hostname
-Rename-Computer -NewName "$ServerHostname" -Force -PassThru
-
 # Apply network configuration changes
 Restart-NetAdapter -Name "Ethernet"
 
