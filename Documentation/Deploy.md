@@ -291,9 +291,64 @@ INSTALL INSTRUCTIONS OOBE\BYPASSNRO
 * MORE ANSIBLE STUFF
 
 #### RH_DevStation
-* FEDORA WORKSTATION 40 INSTALL INSTRUCTIONS
+* Insert Fedora Workstation 40 ISO into RH_DevStation
+
+* Select *Test this media* to ensure that the ISO has not been corrupted.
+
+* When you reach the desktop, open network settings through the top right menu
+
+* Select the settings icon on the wired interface
+
+* Enter the IPv4 tab
+
+* Change IPv4 Method to Manual
+
+* Set:
+Address: 172.16.16.4
+Netmask: 255.255.255.0
+Gateway: 172.16.16.1
+
+* Change DNS from automatic to 1.1.1.1
+
+* Click apply
+
+* You should now have internet access, return to the install wizard and click Install Fedora
+
+* Choose your language and continue
+
+* Select Installation Destination, check *Encrypt my data* and *Free up space...* boxes and click done. Choose to delete all existing partitions. Enter an encryption passphrase when prompted. 
+
+* Click begin installation 
+
+* When the installation is complete, click Finish Installation
+
+* Type Right-Ctrl+Del, then select Power Off
+
+* Reboot the VM
+
+* On first boot, click start setup
+
+* Proceed past the privacy screen
+
+* Click Enbable third-party repositories, then proceed
+
+* Assign a name to your local user
+
+* Set a password
+
+* Click start using Fedora Linux
+
+* Use the meta key to see your app bar, then search for terminal and select it
+
+* Update packages using the command *sudo dnf upgrade -y*
+
+* Reboot the VM
 
 * Open a terminal
+
+* Install git by running *sudo dnf install git*
+
+* Clone the project repository by running *git clone https://github.com/nniemeir/Enterprise-Computing-I*
 
 * Navigate to the directory Scripts/Red Hat/Development Workstation
 
@@ -301,4 +356,4 @@ INSTALL INSTRUCTIONS OOBE\BYPASSNRO
 
 * Run Enroll.sh, this will enroll the device as a ipa-client.
 
-* MORE EXPLAIN
+* MORE EXPLAINATION
