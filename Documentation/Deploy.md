@@ -70,7 +70,10 @@ The deployment scripts assume a host system with specifications similar to the f
 
 * On first login, open a PowerShell window with administrator privileges.
 
-* Run the command *Rename-Computer -NewName "$DESIREDHOSTNAME" -Force -PassThru*
+* Run the following command:
+~~~
+Rename-Computer -NewName "$DESIREDHOSTNAME" -Force -PassThru
+~~~
 
 * Reboot the VM
 
@@ -100,7 +103,10 @@ The deployment scripts assume a host system with specifications similar to the f
 
 * Open Git Bash
 
-* Clone the project repository by running the command *git clone https://github.com/nniemeir/Enterprise-Computing-I*
+* Run the following command to clone the project repository
+~~~
+git clone https://github.com/nniemeir/Enterprise-Computing-I
+~~~
 
 * Return to the **Internet Protocol Version 4 (TCP/IPv4)** properties menu
 
@@ -112,7 +118,10 @@ The deployment scripts assume a host system with specifications similar to the f
 
 * Open a PowerShell prompt with administrative privileges and navigate to the directory **Scripts\Microsoft\Active Directory Server** under the cloned repository.
 
-* Run the command *Set-ExecutionPolicy unrestricted -scope Process* to allow the deployment scripts to be run. 
+* Run the following command to allow the deployment scripts to be run. 
+~~~
+Set-ExecutionPolicy unrestricted -scope Process
+~~~
 
 * Run the script **AD_Deploy**, this will install Active Directory Domain Services and add DNS records for each VM on the network as defined in DNS_Records.csv in the Records directory.
 
@@ -131,19 +140,31 @@ Temporary passwords for each created user will be generated and saved in the **R
 
 * Open a PowerShell prompt with administrative privileges and navigate to the directory **Scripts\Microsoft\Active Directory Server** under the cloned repository. 
 
-* Run the command *Invoke-Command -ComputerName PASSENGER01 -FilePath Dev_Toolkit.ps1*, this will install some common developer applications on MS_DevStation.
+* Run the following command to remotely install a set of development tools to MS_DevStation
+~~~
+Invoke-Command -ComputerName PASSENGER01 -FilePath Dev_Toolkit.ps1
+~~~
 
 * Deployment of this network is now complete.
 
 #### MS_DevStation
+* Download (Git)[https://git-scm.com/downloads] using Microsoft Edge.
 
-* On first login, download and install (Git)[https://git-scm.com/downloads]
+* Install Git with default options.
 
-* Clone the project repository by running the command *git clone https://github.com/nniemeir/Enterprise-Computing-I*
+* Open Git Bash
+
+* Run the following command to clone the project repository
+~~~
+git clone https://github.com/nniemeir/Enterprise-Computing-I
+~~~
 
 * Open a PowerShell prompt with administrative privileges and navigate to the directory Scripts\Microsoft\Development Workstation under the cloned repository.
 
-* Run the command *Set-ExecutionPolicy unrestricted -scope Process* to allow the deployment scripts to be run.
+* Run the following command to allow the deployment scripts to be run.
+~~~
+Set-ExecutionPolicy unrestricted -scope Process 
+~~~
 
 * Run **Pre_Enrollment**, this will configure this device's network settings
 
@@ -237,17 +258,29 @@ Temporary passwords for each created user will be generated and saved in the **R
 
 * When the installation is complete, click Reboot System
 
-* On first boot, update packages using the command *sudo dnf upgrade*
+* On first boot, run the following command to update packages
+~~~
+sudo dnf upgrade -y
+~~~
 
 * Reboot the VM
 
-* Install git by running *sudo dnf install git*
+* Run the following command to install Git
+~~~
+sudo dnf install git -y
+~~~
 
-* Clone the project repository by running *git clone https://github.com/nniemeir/Enterprise-Computing-I*
+* Run the following command to clone the project repository
+~~~
+git clone https://github.com/nniemeir/Enterprise-Computing-I
+~~~
 
 * Navigate to the directory Scripts/Red Hat/FreeIPA Server
 
-* Run *chmod +x Pre-Deployment.sh Deploy.sh*, this will ensure that both deployment scripts are executable by the current user. 
+* Run the following command to allow the deployment scripts to be executed
+~~~
+chmod +x Pre-Deployment.sh Deploy.sh
+~~~
 
 * Run the script **Pre-Deployment.sh**, this will configure network settings and install some necessary packages
 
@@ -300,23 +333,34 @@ Temporary passwords for each created user will be generated and saved in the **R
 
 * When the installation is complete, click **Reboot System**
 
-* On first boot, update packages using *sudo dnf upgrade -y*
+* On first boot, run the following command to upgrade packages
+~~~
+sudo dnf upgrade -y
+~~~
 
 * Reboot the VM
 
-* Install git by running *sudo dnf install git -y*
+* Run the following command to install Git
+~~~
+sudo dnf install git -y
+~~~
 
-* Clone the project repository by running *git clone https://github.com/nniemeir/Enterprise-Computing-I*
+* Run the following command to clone the project repository
+~~~
+git clone https://github.com/nniemeir/Enterprise-Computing-I
+~~~
 
 * Navigate to the directory Scripts/Red Hat/Ansible Server
 
-* Run *chmod +x Enrollment.sh Post-Enrollment.sh*, this will ensure that both deployment scripts are executable by the current user. 
+* Run the following command to allow the deployment scripts to be executed
+~~~
+chmod +x Enrollment.sh Post-Enrollment.sh
+~~~
 
 * Run the script **Enrollment.sh**, this will configure network settings and install some necessary packages before it enrolls the device as a ipa-client. Reasons for installing these packages are explained (here)[preface.md].
 
 * Run the script **Post-Enrollment.sh**, this will install Ansible and generate SSH keys for this VM. 
 
-* MORE ANSIBLE STUFF
 
 #### RH_DevStation
 * Insert Fedora Workstation 40 ISO into RH_DevStation
@@ -374,18 +418,30 @@ Temporary passwords for each created user will be generated and saved in the **R
 
 * Use the meta key to see your app bar, then search for **Terminal** and select it
 
-* Update packages using the command *sudo dnf upgrade -y*
+* On first boot, run the following command to upgrade packages
+~~~
+sudo dnf upgrade -y
+~~~
 
 * Reboot the VM
 
 * Open a terminal
 
-* Install git by running *sudo dnf install git*
+* Run the following command to install Git
+~~~
+sudo dnf install git -y
+~~~
 
-* Clone the project repository by running *git clone https://github.com/nniemeir/Enterprise-Computing-I*
+* Run the following command to clone the project repository
+~~~
+git clone https://github.com/nniemeir/Enterprise-Computing-I
+~~~
 
 * Navigate to the directory Scripts/Red Hat/Development Workstation
 
-* Run *chmod +x Enroll.sh*, this will ensure that both deployment scripts are executable by the current user. 
+* Run the following command to allow the deployment script to be executed:
+~~~
+chmod +x Enroll.sh
+~~~
 
 * Run **Enroll.sh**, this will enroll the device as a ipa-client.
