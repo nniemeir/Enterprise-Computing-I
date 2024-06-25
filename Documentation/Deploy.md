@@ -5,7 +5,7 @@ The deployment scripts assume a host system with specifications similar to the f
 * CPU: AMD Ryzen 7 5800x
 * GPU: AMD RX 6600 XT
 * RAM: 32GB DDR4
-* STORAGE: 1TB (SSD strongly recommended) 
+* Storage: 1TB (SSD strongly recommended) 
 
 ### Host Setup 
 * Install Oracle VirtualBox 
