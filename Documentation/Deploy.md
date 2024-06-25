@@ -145,7 +145,7 @@ Temporary passwords for each created user will be generated and saved in the **R
 Invoke-Command -ComputerName PASSENGER01 -FilePath Dev_Toolkit.ps1
 ~~~
 
-* Deployment of this network is now complete.
+* Check that the deployment of this network was successful by the criteria outlined (here)[Testing.md]
 
 #### MS_DevStation
 * Download (Git)[https://git-scm.com/downloads] using Microsoft Edge.
