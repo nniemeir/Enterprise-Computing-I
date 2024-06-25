@@ -145,10 +145,10 @@ Temporary passwords for each created user will be generated and saved in the **R
 Invoke-Command -ComputerName PASSENGER01 -FilePath Dev_Toolkit.ps1
 ~~~
 
-* Check that the deployment of this network was successful by the criteria outlined (here)[Testing.md]
+* Check that the deployment of this network was successful by the criteria outlined [here](Testing.md)
 
 #### MS_DevStation
-* Download (Git)[https://git-scm.com/downloads] using Microsoft Edge.
+* Download [Git](https://git-scm.com/downloads) using Microsoft Edge.
 
 * Install Git with default options.
 
