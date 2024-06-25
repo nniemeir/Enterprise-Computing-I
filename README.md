@@ -7,5 +7,3 @@
 [Deployment Testing](Documentation/Testing.md)
 
 [References](Documentation/References.md)
-
-*This project is a work in progress*
