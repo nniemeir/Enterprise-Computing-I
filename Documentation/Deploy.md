@@ -97,7 +97,7 @@ Rename-Computer -NewName "$DESIREDHOSTNAME" -Force -PassThru
 
 * When prompted about allowing other devices to discover this one, select Yes.
 
-* Download (Git)[https://git-scm.com/downloads] using Microsoft Edge.
+* Download [Git](https://git-scm.com/downloads) using Microsoft Edge.
 
 * Install Git with default options.
 
